@@ -356,3 +356,20 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+.gitignore
+TallerWeb3.WebApp/App_Start/
+TallerWeb3.WebApp/Content/
+TallerWeb3.WebApp/Controllers/
+TallerWeb3.WebApp/Global.asax
+TallerWeb3.WebApp/Global.asax.cs
+TallerWeb3.WebApp/Models/
+TallerWeb3.WebApp/Properties/
+TallerWeb3.WebApp/Scripts/
+TallerWeb3.WebApp/TallerWeb3.WebApp.csproj
+TallerWeb3.WebApp/Views/
+TallerWeb3.WebApp/Web.config
+TallerWeb3.WebApp/favicon.ico
+TallerWeb3.WebApp/fonts/
+TallerWeb3.WebApp/packages.config
+TallerWeb3.sln.DotSettings
+packages/
