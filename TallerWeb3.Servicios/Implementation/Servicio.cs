@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using LinqKit;
+using TallerWeb3.Dominio.Contracts;
+using TallerWeb3.Dominio.Entidades;
+using TallerWeb3.Dominio.Extensions;
 using TallerWeb3.Servicios.Contracts;
 using TallerWeb3.Servicios.Exceptions;
 

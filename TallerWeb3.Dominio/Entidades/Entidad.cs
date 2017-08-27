@@ -1,7 +1,7 @@
-﻿namespace Nedo.ShopingVirtual.Dominio.Entidades
+﻿namespace TallerWeb3.Dominio.Entidades
 {
     public abstract class Entidad
     {
-        public abstract ulong Id { get; set; }
+        public long Id { get; set; }
     }
 }

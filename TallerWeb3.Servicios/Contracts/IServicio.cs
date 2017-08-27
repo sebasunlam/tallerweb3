@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using TallerWeb3.Dominio.Entidades;
+using TallerWeb3.Dominio.Extensions;
 
 namespace TallerWeb3.Servicios.Contracts
 {

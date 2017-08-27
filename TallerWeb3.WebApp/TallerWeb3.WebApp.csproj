@@ -125,6 +125,16 @@
     <Folder Include="Content" />
     <Folder Include="Models" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TallerWeb3.Dominio\TallerWeb3.Dominio.csproj">
+      <Project>{e332c19e-3b63-49a2-a2c0-9ea77873371d}</Project>
+      <Name>TallerWeb3.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TallerWeb3.Servicios\TallerWeb3.Servicios.csproj">
+      <Project>{f1ec1208-a799-454b-ad50-6dc5925d5961}</Project>
+      <Name>TallerWeb3.Servicios</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

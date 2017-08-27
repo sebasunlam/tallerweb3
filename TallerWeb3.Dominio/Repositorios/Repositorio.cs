@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using TallerWeb3.Dominio.Contracts;
+using TallerWeb3.Dominio.Entidades;
 using TallerWeb3.Dominio.Extensions;
 
 namespace TallerWeb3.Dominio.Repositorios
