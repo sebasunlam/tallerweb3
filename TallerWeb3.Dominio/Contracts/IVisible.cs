@@ -1,4 +1,4 @@
-﻿namespace TallerWeb3.Dominio.Contracts
+﻿namespace ProgramacionWeb3.Dominio.Contracts
 {
 	public interface IVisible
 	{

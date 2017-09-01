@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TallerWeb3.Servicios.Exceptions
+namespace ProgramacionWeb3.Servicios.Exceptions
 {
 	public class ServiceException : Exception
 	{

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TallerWeb3.Dominio.Extensions
+namespace ProgramacionWeb3.Dominio.Extensions
 {
     public static class PagingExtensions
     {

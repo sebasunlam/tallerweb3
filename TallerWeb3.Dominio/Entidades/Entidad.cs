@@ -1,4 +1,4 @@
-﻿namespace TallerWeb3.Dominio.Entidades
+﻿namespace ProgramacionWeb3.Dominio.Entidades
 {
     public abstract class Entidad
     {

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
-using TallerWeb3.Dominio.Contracts;
-using TallerWeb3.Dominio.Entidades;
-using TallerWeb3.Dominio.Extensions;
+using ProgramacionWeb3.Dominio.Contracts;
+using ProgramacionWeb3.Dominio.Entidades;
+using ProgramacionWeb3.Dominio.Extensions;
 
-namespace TallerWeb3.Dominio.Repositorios
+namespace ProgramacionWeb3.Dominio.Repositorios
 {
     public class Repositorio<T> : IRepositorio<T> where T : Entidad
     {

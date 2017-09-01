@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using TallerWeb3.Dominio.Entidades;
-using TallerWeb3.Dominio.Extensions;
+using ProgramacionWeb3.Dominio.Entidades;
+using ProgramacionWeb3.Dominio.Extensions;
 
-namespace TallerWeb3.Dominio.Contracts
+namespace ProgramacionWeb3.Dominio.Contracts
 {
 	public interface IRepositorio<T> where T: Entidad
 	{

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using TallerWeb3.Dominio.Entidades;
-using TallerWeb3.Dominio.Extensions;
+using ProgramacionWeb3.Dominio.Entidades;
+using ProgramacionWeb3.Dominio.Extensions;
 
-namespace TallerWeb3.Servicios.Contracts
+namespace ProgramacionWeb3.Servicios.Contracts
 {
     public interface IServicio<T> where T : Entidad
     {
