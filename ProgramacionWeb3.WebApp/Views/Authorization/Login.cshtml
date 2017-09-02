@@ -1,0 +1,27 @@
+﻿@model ProgramacionWeb3.WebApp.Models.AuthorizationViewModel
+
+@{
+    ViewBag.Title = "Iniciar Sesión";
+}
+
+@using (Html.BeginForm("Login","Authorization",FormMethod.Post))
+{
+    
+    <div class="form-group">
+        <label for="Email">Email address</label>
+        @Html.TextAreaFor(m=>m.Email,new{@class="form-control"})
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+    </div>
+    <div class="form-check">
+        <label class="form-check-label">
+            @Html.CheckBoxFor(m=>m.Remember,new {@class= "form-check-input" })
+            Recordarme
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+
+}
+
