@@ -2,7 +2,7 @@
 using System.Reflection;
 using ProgramacionWeb3.Dominio.Contracts;
 using ProgramacionWeb3.Dominio.Entidades;
-using ProgramacionWeb3.Dominio.Repositorios;
+using ProgramacionWeb3.Dominio.Implementation;
 using ProgramacionWeb3.Servicios.Contracts;
 using ProgramacionWeb3.Servicios.Implementation;
 using SimpleInjector;
@@ -22,6 +22,7 @@ namespace ProgramacionWeb3.WebApp.IoC
             //Ejemplo de registro de Repositorio custom
             //container.Register(INombreEntidadServicio<NombreEntidad>, NombreEntidadServicio<NombreEntidad>,Lifestyle.Scoped);
             container.Register(typeof(IServicio<>), typeof(Servicio<>), Lifestyle.Scoped);
+            container.Register<IUsuarioServicio,UsuarioServicio>(Lifestyle.Scoped);
 
 
             #endregion
@@ -33,6 +34,7 @@ namespace ProgramacionWeb3.WebApp.IoC
             #endregion
 
             #region Contexto
+            container.Register<IUnitOfWork,UnitOfWork>(Lifestyle.Scoped);
             container.Register<DbContext, PW3_20172C_TP_TurismoEntities>(Lifestyle.Scoped);
             #endregion
 

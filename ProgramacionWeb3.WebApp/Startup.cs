@@ -16,7 +16,7 @@ namespace ProgramacionWeb3.WebApp
     {
         public void Configuration(IAppBuilder app)
         {
-          
+          ConfigureAuth(app);
         }
 
         public void ConfigureAuth(IAppBuilder app)
@@ -24,7 +24,7 @@ namespace ProgramacionWeb3.WebApp
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/LogOn")
+                LoginPath = new PathString("/Authorization/Login")
             });
 
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;

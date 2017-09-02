@@ -11,17 +11,5 @@ namespace ProgramacionWeb3.WebApp.Models
         public string ApellidoNombre => $"{Apellido}, {Nombre}";
     }
 
-    public static class Pw3UserExtension
-    {
-        public static Pw3User Map(this Usuario user)
-        {
-            return new Pw3User
-            {
-                Apellido = user.Apellido,
-                Nombre = user.Nombre,
-                Id = user.Id,
-                Email = user.Email
-            };
-        }
-    }
+  
 }

@@ -5,10 +5,10 @@ using ProgramacionWeb3.Servicios.Contracts;
 using ProgramacionWeb3.WebApp.Models;
 using System.Security.Claims;
 using System.Web;
-using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
+using ProgramacionWeb3.Dominio.Entidades;
+using ProgramacionWeb3.WebApp.Extensions;
 
 namespace ProgramacionWeb3.WebApp.Controllers
 {
@@ -32,17 +32,18 @@ namespace ProgramacionWeb3.WebApp.Controllers
         [AllowAnonymous,HttpPost, Route("Login")]
         public ActionResult Login(AuthorizationViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            var usuario = _usuarioServicio.CheckUserAndPassword(model.Email, model.Password);
+
+            if (usuario != null)
             {
-                var usuario = _usuarioServicio.CheckUserAndPassword(model.Email, model.Password);
+                IdentitySignin(usuario,model.Remember);
 
-                if (usuario != null)
-                {
-                    IdentitySignin(usuario.Map(),model.Remember);
-
-                    return Redirect(Url.Action("Index", "Home"));
-                }
+                return Redirect(Url.Action("Index", "Home"));
             }
+
+            ModelState.AddModelError(string.Empty, "Usuario o contraseña incorrectos");
 
             return View(model);
         }
@@ -56,18 +57,21 @@ namespace ProgramacionWeb3.WebApp.Controllers
         }
 
 
-        public void IdentitySignin(Pw3User user, bool isPersistent = false)
+        public void IdentitySignin(Usuario user, bool isPersistent = false)
         {
+            var pw3User = user.Map();
+
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.GivenName, user.ApellidoNombre),
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim("apellido",user.Apellido),
-                new Claim("nombre",user.Nombre),
-                new Claim("userState", user.ToString())
+                new Claim(ClaimTypes.NameIdentifier, pw3User.Id.ToString()),
+                new Claim(ClaimTypes.GivenName, pw3User.ApellidoNombre),
+                new Claim(ClaimTypes.Email,pw3User.Email),
+                new Claim("apellido",pw3User.Apellido),
+                new Claim("nombre",pw3User.Nombre)
             };
 
+            if(user.Admin)
+                claims.Add(new Claim(ClaimTypes.Role,"Administrador"));
 
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 
