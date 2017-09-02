@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using ProgramacionWeb3.Dominio.Contracts;
 using ProgramacionWeb3.Dominio.Entidades;

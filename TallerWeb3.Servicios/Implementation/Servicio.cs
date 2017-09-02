@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using LinqKit;
 using ProgramacionWeb3.Dominio.Contracts;
 using ProgramacionWeb3.Dominio.Entidades;
 using ProgramacionWeb3.Dominio.Extensions;
