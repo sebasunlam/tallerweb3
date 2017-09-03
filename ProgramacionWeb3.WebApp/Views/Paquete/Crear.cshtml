@@ -1,0 +1,24 @@
+﻿@model ProgramacionWeb3.WebApp.Models.PaqueteViewModel
+@{
+    ViewBag.Title = "Nuevo";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h2>Nuevo paquete</h2>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            @using (Html.BeginForm("Crear", "Paquete", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.Partial("CreateEditFormPartial")
+            }
+        </div>
+    </div>
+</div>

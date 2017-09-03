@@ -23,7 +23,7 @@ namespace ProgramacionWeb3.WebApp.Controllers
         }
 
 
-        [AllowAnonymous]
+        [AllowAnonymous,Route("Login")]
         public ActionResult Login()
         {
             return View();

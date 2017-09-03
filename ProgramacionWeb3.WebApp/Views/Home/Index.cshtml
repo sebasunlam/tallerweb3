@@ -1,35 +1,65 @@
-﻿@model ProgramacionWeb3.WebApp.Models.HomePaquetesViewModel
+﻿@model ProgramacionWeb3.WebApp.Models.ListadoPaquetesViewModel
 @{
     ViewBag.Title = "Home Page";
+    var counter = 0;
 }
-@if (Model.Paquetes.Any())
-{
-    <div class="container">
-        <div class="card-deck">
+<div class="container">
+    @if (Model.Paquetes.Any())
+    {
+
+        for (var x = 0; x <= Model.Paquetes.Count / 4; x++)
+            {
+                <div class="card-deck deck-margin">
+                    @for (var i = 0; i < 4; i++)
+                    {
+
+                        if (counter < Model.Paquetes.Count)
+                        {
+                            {
+                                var paquete = Model.Paquetes[counter];
+
+                                counter++;
+
+                                <div class="card">
+                                    <img class="card-img-top card-image-resize" src="@paquete.Foto" alt="@paquete.Nombre">
+                                    <div class="card-body">
+                                        <h4 class="card-title">@Html.ActionLink(paquete.Nombre, "Detalle", "Paquete", new { id = paquete.Id }, new { @class = "text-dark" })</h4>
+                                        <p class="card-text">@paquete.Descripcion</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Inicio @paquete.FechaFin.ToShortDateString() - Fin @paquete.FechaFin.ToShortDateString()</small>
+                                    </div>
+                                </div>
+                            }
+                        }
 
 
-
+                    }
+                </div>
+            }
+        @*<div class="card-deck">
             @foreach (var paquete in Model.Paquetes)
             {
-                
-                    
-                    <div class="card">
-                        <img class="card-img-top card-image-resize" src="@paquete.Foto" alt="@paquete.Nombre">
-                        <div class="card-body">
-                            <h4 class="card-title">@Html.ActionLink(paquete.Nombre,"Detalle","Paquete",new {id = paquete.Id},null)</h4>
-                            <p class="card-text">@paquete.Descripcion</p>
-                            <p class="card-text"><small class="text-muted">@paquete.FechaFin.ToShortDateString() - @paquete.FechaFin.ToShortDateString()</small>
-                            </p>
-                        </div>
+                <div class="card">
+                    <img class="card-img-top card-image-resize" src="@paquete.Foto" alt="@paquete.Nombre">
+                    <div class="card-body">
+                        <h4 class="card-title">@Html.ActionLink(paquete.Nombre, "Detalle", "Paquete", new { id = paquete.Id }, new { @class = "text-dark" })</h4>
+                        <p class="card-text">@paquete.Descripcion</p>
                     </div>
-                
+                    <div class="card-footer">
+                        <small class="text-muted">Inicio @paquete.FechaFin.ToShortDateString() - Fin @paquete.FechaFin.ToShortDateString()</small>
+                    </div>
+                </div>
+
             }
+        </div>*@
+
+
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            No hay paquetes para mostrar
         </div>
-    </div>
-}
-else
-{
-    <div class="alert alert-info" role="alert">
-        No hay paquetes para mostrar
-    </div>
-}
+    }
+</div>

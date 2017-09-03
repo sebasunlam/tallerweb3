@@ -1,6 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using ProgramacionWeb3.Servicios.Contracts;
 using ProgramacionWeb3.WebApp.Models;
+using ProgramacionWeb3.WebApp.Models.Extensions;
 
 namespace ProgramacionWeb3.WebApp.Controllers
 {
@@ -15,9 +17,9 @@ namespace ProgramacionWeb3.WebApp.Controllers
 
         public ActionResult Index()
         {
-            return View(new HomePaquetesViewModel
+            return View(new ListadoPaquetesViewModel
             {
-                Paquetes = _paqueteServicio.GetDestacados()
+                Paquetes = _paqueteServicio.GetDestacados().Select(x=>x.Map()).ToList()
             });
         }
         

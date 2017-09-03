@@ -1,0 +1,167 @@
+﻿@model ProgramacionWeb3.WebApp.Models.ListadoPaquetesViewModel
+@{
+    ViewBag.Title = "Listado de Paquetes";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
+            $("#ddPageSize").change(function() {
+            window.location.href = '@Url.Action("Index","Paquete")/@Model.CurrentPage/'+$(this).val();
+            });
+
+            $(".fa-star").click(function () {
+                changeDestacado($(this));
+            });
+
+            $(".fa-star-o").click(function () {
+                changeDestacado($(this));
+            });
+
+            $(".btn-outline-danger").click(function () {
+                waitingDialog.show();
+                window.location.href = '@Url.Action("Eliminar")/' + $(this).attr('paqueteId');
+            });
+
+            $(".btn-outline-primary").click(function () {
+                waitingDialog.show();
+                window.location.href = '@Url.Action("Editar")/' + $(this).attr('paqueteId');
+            });
+
+            function changeDestacado(star) {
+                var current = star.attr('class');
+                star.removeClass();
+                star.addClass('fa fa-spinner fa-pulse');
+
+                $.post('@Url.Action("ChangeDestacado")/' + star.attr('paqueteId'),
+                    function (data) {
+                        star.removeClass();
+                        if (data) {
+                            star.addClass('text-warning fa fa-star');
+                        } else {
+                            star.addClass('text-warning fa fa-star-o');
+                        }
+                    }).fail(function() {
+                    star.removeClass();
+                    star.addClass(current);
+                });
+            }
+
+
+    })
+    </script>
+}
+
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    <div class="row">
+        <div class="col-3">
+            <a class="btn btn-primary" href="@Url.Action("Crear")">Nuevo paquete <i class="fa fa-plus"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped table-hover">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Precio</th>
+                        <th>Lugares</th>
+                        <th>Destacado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var paquete in Model.Paquetes)
+                    {
+                        <tr class="@(paquete.FechaFin.Date < DateTime.Now.Date ? "table-danger" : string.Empty) @(paquete.FechaFin.Date == DateTime.Now.Date ? "table-warning" : string.Empty)">
+                            <th>@paquete.Id</th>
+                            <th>@paquete.Nombre</th>
+                            <th>@paquete.FechaInicio.ToShortDateString()</th>
+                            <th>@paquete.FechaFin.ToShortDateString()</th>
+                            <th>@($"${paquete.PrecioPorPersona}")</th>
+                            <th>@paquete.LugaresDisponibles</th>
+                            <th class="text-center"><i class='text-warning @(paquete.Destacado ? "fa fa-star" : "fa fa-star-o")' aria-hidden="true" paqueteId="@paquete.Id"></i></th>
+                            <th>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Editar" paqueteId="@paquete.Id"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" paqueteId="@paquete.Id"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if (Model.CurrentPage != 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Paquete", new {page = Model.CurrentPage - 1, pageSize = Model.PageSize})">Anterior</a></li>
+                    }
+                    @if (Model.CurrentPage - 5 > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Paquete", new {page = Model.CurrentPage - 5, pageSize = Model.PageSize})">-5</a></li>
+                    }
+                    @if (Model.TotalPages > 5)
+                    {
+                        for (var i = Model.CurrentPage; i <= Model.CurrentPage + 5; i++)
+                        {
+                            if (Model.CurrentPage == i)
+                            {
+                                <li class="page-item active"><a href="@Url.Action("Index", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href="@Url.Action("Index", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (var i = 1; i <= Model.TotalPages; i++)
+                        {
+                            if (Model.CurrentPage == i)
+                            {
+                                <li class="page-item active"><a href="@Url.Action("Index", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href="@Url.Action("Index", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                        }
+                    }
+
+                    @if (Model.CurrentPage + 5 < Model.TotalPages)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Paquete", new {page = Model.CurrentPage + 5, pageSize = Model.PageSize})">+5</a></li>
+                    }
+                    @if (Model.CurrentPage != Model.TotalPages)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Paquete", new {page = Model.CurrentPage + 1, pageSize = Model.PageSize})">Siguiente</a></li>
+                    }
+
+
+                </ul>
+            </nav>
+        </div>
+        <div class="col">
+
+            <div class="form-group row">
+                <label for="ddPageSize" class="col-sm-4">Items por página</label>
+                @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize" })
+            </div>
+
+        </div>
+    </div>
+</div>

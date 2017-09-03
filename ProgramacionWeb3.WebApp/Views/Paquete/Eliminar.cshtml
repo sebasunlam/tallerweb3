@@ -1,0 +1,54 @@
+﻿@model ProgramacionWeb3.WebApp.Models.PaqueteViewModel
+@{
+    ViewBag.Title = "Eliminar";
+}
+@using (Html.BeginForm("Eliminar", "Paquete", FormMethod.Post))
+{
+
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-3">¿Confirma que desea eliminar el paquete @Model.Nombre ?</h1>
+            <p class="lead">
+                <div class="row">
+                    <div class="col-2">
+                        @Html.DisplayNameFor(m => m.Nombre)
+                    </div>
+                    <div class="col">
+                        @Model.Nombre
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        @Html.DisplayNameFor(m => m.Descripcion)
+                    </div>
+                    <div class="col">
+                        @Model.Descripcion
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        @Html.DisplayNameFor(m => m.FechaInicio)
+                    </div>
+                    <div class="col">
+                        @Model.FechaInicio.ToShortDateString()
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        @Html.DisplayNameFor(m => m.FechaFin)
+                    </div>
+                    <div class="col">
+                        @Model.FechaFin.ToShortDateString()
+                    </div>
+                </div>
+            </p>
+            <hr class="my-4">
+            <p>Una vez eliminado no podra recuperarlo.</p>
+            <p class="lead">
+                <button type="submit" class="btn btn-danger btn-lg" href="#" role="button">Eliminar</button>
+                <a class="btn btn-outline-success btn-lg" href="@Url.Action("Index")">Cancelar</a>
+            </p>
+        </div>
+    </div>
+}
