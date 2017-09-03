@@ -65,7 +65,22 @@
             <a class="btn btn-primary" href="@Url.Action("Crear")">Nuevo paquete <i class="fa fa-plus"></i></a>
         </div>
     </div>
-    <div class="row">
+    @if (ViewBag.paqueteOperacion != null)
+    {
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="alert-heading">@ViewBag.paqueteOperacion</h4>
+                </div>
+            </div>
+        </div>
+
+    }
+    <div class="row deck-margin">
         <div class="col">
             <table class="table table-striped table-hover">
                 <thead class="thead-inverse">
@@ -102,7 +117,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col-7">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     @if (Model.CurrentPage != 1)
@@ -155,13 +170,14 @@
                 </ul>
             </nav>
         </div>
-        <div class="col">
-
-            <div class="form-group row">
-                <label for="ddPageSize" class="col-sm-4">Items por página</label>
-                @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize" })
-            </div>
-
+        <div class="col-2 text-left">
+            <label class="text-primary lead">Mostrando</label>
+        </div>
+        <div class="col-1">
+            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize" })
+        </div>
+        <div class="col-2">
+            <label class="text-primary lead">Items de: <strong>@Model.TotalItems</strong></label>
         </div>
     </div>
 </div>

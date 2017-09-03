@@ -11,6 +11,6 @@ namespace ProgramacionWeb3.WebApp.Models
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
 
-        public List<int> AvaiableSizes => new List<int> { 10, 25, 50, 100 };
+        public List<int> AvaiableSizes => new List<int> { 5, 10, 25, 50, 100 };
     }
 }
