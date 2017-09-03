@@ -49,9 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IPaqueteServicio.cs" />
     <Compile Include="Contracts\IServicio.cs" />
     <Compile Include="Contracts\IUsuarioServicio.cs" />
     <Compile Include="Exceptions\ServiceException.cs" />
+    <Compile Include="Implementation\PaqueteServicio.cs" />
     <Compile Include="Implementation\Servicio.cs" />
     <Compile Include="Implementation\UsuarioServicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -23,6 +23,7 @@ namespace ProgramacionWeb3.WebApp.IoC
             //container.Register(INombreEntidadServicio<NombreEntidad>, NombreEntidadServicio<NombreEntidad>,Lifestyle.Scoped);
             container.Register(typeof(IServicio<>), typeof(Servicio<>), Lifestyle.Scoped);
             container.Register<IUsuarioServicio,UsuarioServicio>(Lifestyle.Scoped);
+            container.Register<IPaqueteServicio,PaqueteServicio>(Lifestyle.Scoped);
 
 
             #endregion

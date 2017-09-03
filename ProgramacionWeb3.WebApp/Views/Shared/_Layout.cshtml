@@ -16,22 +16,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Acerca de", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                @Html.Partial("_pvMenuAnonimo")
+                @if (Request.IsAuthenticated)
+                {
+                    @(User.IsInRole("Administrador") ? Html.Partial("_pvMenuAdmin") : Html.Partial("_pvMenuUsuario"))
+                }
             </ul>
             @Html.Partial("_partialLogIn")
         </div>
-        
+
     </nav>
-    
-    <div class="container">
-        @RenderBody()
-        <hr />
-        <footer class="navbar fixed-bottom navbar-light bg-light">
-            <span class="navbar-brand">&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</span>
-        </footer>
-    </div>
+
+    @RenderBody()
+
+    <hr />
+    <footer class="navbar fixed-bottom navbar-light bg-light">
+        <span class="navbar-brand">&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</span>
+    </footer>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

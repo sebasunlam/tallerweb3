@@ -7,3 +7,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.card-image-resize {
+    height: 10em; 
+}
+
+.card-detail-max {
+    max-height: 30em;
+}
+

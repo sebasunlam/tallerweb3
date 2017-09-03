@@ -1,0 +1,21 @@
+﻿@model ProgramacionWeb3.WebApp.Models.PaqueteViewModel
+@{
+    ViewBag.Title = Model.Nombre;
+}
+
+<div class="container">
+    <div class="card">
+        <img class="card-img-top card-detail-max" src="@Model.Foto" alt="@Model.Nombre">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Nombre</h4>
+            <p class="card-text">
+                
+                @Model.Descripcion
+            </p>
+            <p class="card-text"><small class="text-muted">Inicio : @Model.FechaFin.ToShortDateString() / Fin: @Model.FechaFin.ToShortDateString()</small>
+            </p>
+            <a class="btn btn-primary">Reservar</a>
+        </div>
+    </div>
+</div>
+
