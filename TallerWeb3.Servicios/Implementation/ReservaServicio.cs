@@ -29,5 +29,15 @@ namespace ProgramacionWeb3.Servicios.Implementation
         {
             return GetAllItems(x => x.IdUsuario == idUsuario).OrderByDescending(x=>x.FechaCreacion).ToPage(pageIndex, pageSize);
         }
+        
+        public override void Delete(long id)
+        {
+            var reserva = Get(id);
+            var paquete = _paqueteRepositorio.Get(reserva.IdPaquete);
+
+            paquete.LugaresDisponibles = paquete.LugaresDisponibles + reserva.CantPersonas;
+
+            base.Delete(id);
+        }
     }
 }

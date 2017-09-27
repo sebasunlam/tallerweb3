@@ -6,11 +6,18 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            
+
             $("#ddPageSize").change(function() {
             window.location.href = '@Url.Action("HistorialReserva","Paquete")/@Model.CurrentPage/'+$(this).val();
             });
-    })
+
+            $(".delete").click(function () {
+                var id = $(this).attr("idReserva");
+                $.post("http://localhost:60569/api/reserva/delete/" + id).then(function() {
+                    location.reload();
+                });
+            });
+        })
     </script>
 }
 
@@ -26,25 +33,24 @@
                         <th>Nombre</th>
                         <th>Inicio</th>
                         <th>Fin</th>
-                        <th>Precio</th>
-                        <th>Lugares</th>
-                        <th>Fecha de reserva</th>
                         <th>Cantidad pasajeros</th>
-                        
+                        <th>Precio</th>
+                        <th>Precio Total</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var reserva in Model.Reservas)
                     {
                         <tr>
-                            <th>@reserva.Id</th>
-                            <th>@reserva.PaqueteViewModel.Nombre</th>
-                            <th>@reserva.PaqueteViewModel.FechaInicio.ToShortDateString()</th>
-                            <th>@reserva.PaqueteViewModel.FechaFin.ToShortDateString()</th>
-                            <th>@($"${reserva.PaqueteViewModel.PrecioPorPersona}")</th>
-                            <th>@reserva.PaqueteViewModel.LugaresDisponibles</th>
-                            <th>@reserva.FechaCreacion.ToShortDateString()</th>
-                            <th>@reserva.CantPersonas</th>
+                            <td>@reserva.Id</td>
+                            <td>@reserva.PaqueteViewModel.Nombre</td>
+                            <td>@reserva.PaqueteViewModel.FechaInicio.ToShortDateString()</td>
+                            <td>@reserva.PaqueteViewModel.FechaFin.ToShortDateString()</td>
+                            <td>@reserva.CantPersonas</td>
+                            <td>@($"${reserva.PaqueteViewModel.PrecioPorPersona}")</td>
+                            <td>@($"${reserva.CantPersonas * reserva.PaqueteViewModel.PrecioPorPersona  }")</td>
+                            <td><button type="button" class="btn btn-danger delete" idReserva="@(reserva.Id)">Cancelar reserva</button></td>
                         </tr>
                     }
                 </tbody>

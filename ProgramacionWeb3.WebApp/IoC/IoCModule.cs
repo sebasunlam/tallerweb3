@@ -12,7 +12,7 @@ namespace ProgramacionWeb3.WebApp.IoC
 {
     public class IoCModule
     {
-        public static Container Register()
+        public static Container Register(bool mvcProject = true)
         {
             
             var container = new Container();
@@ -45,6 +45,7 @@ namespace ProgramacionWeb3.WebApp.IoC
             #endregion
 
             #region Filters
+            if(mvcProject)
             container.RegisterMvcIntegratedFilterProvider();
             #endregion
 
