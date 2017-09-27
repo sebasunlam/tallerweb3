@@ -1,0 +1,76 @@
+﻿@model ProgramacionWeb3.WebApp.Models.ReservaViewModel
+@{
+    ViewBag.Title = "Reservar";
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#backLink").click(function (event) {
+                event.preventDefault();
+                history.back(1);
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm("Reservar", "Paquete", FormMethod.Post))
+{
+    <div class="container">
+        <h2>Usted esta a punto de reservar el siguiente paquete</h2>
+        <hr />
+        @Html.HiddenFor(x => x.IdPaquete)
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.ValidationSummary(false)
+            </div>
+        }
+        <div class="card">
+            <img class="card-img-top card-detail-max" src="@Model.PaqueteViewModel.Foto" alt="@Model.PaqueteViewModel.Nombre">
+            <div class="card-body">
+                <h4 class="card-title">@Model.PaqueteViewModel.Nombre</h4>
+                <p class="card-text">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.CantPersonas)
+                        @Html.TextBoxFor(x => x.CantPersonas, new { @class = "form-control" })
+                    </div>
+                </p>
+                <p class="card-text">
+                    @if (Model.PaqueteViewModel.LugaresDisponibles == null)
+                    {
+                        <small class="text-success">Los lugares son ilimitados</small>
+                    }
+                    else if (Model.PaqueteViewModel.LugaresDisponibles < 5)
+                    {
+                        <small class="text-danger">Quedan @Model.PaqueteViewModel.LugaresDisponibles lugares disponibles</small>
+                    }
+                    else
+                    {
+                        <small class="text-success">Quedan @Model.PaqueteViewModel.LugaresDisponibles lugares disponibles</small>
+                    }
+                    <small class="text-muted">Inicio : @Model.PaqueteViewModel.FechaInicio.ToShortDateString()</small>
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    @if (Model.PaqueteViewModel.LugaresDisponibles != null && Model.PaqueteViewModel.LugaresDisponibles == 0)
+                    {
+                        <button type="button" class="btn btn-danger">Ya no hay lugar</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-success">Confirmar reserva</button>
+                    }
+
+
+                </div>
+                <div class="col-3">
+                    <button type="button"  id="backLink" class="btn btn-danger">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

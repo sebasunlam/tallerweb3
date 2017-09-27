@@ -58,6 +58,7 @@
     <Compile Include="Contracts\IVisible.cs" />
     <Compile Include="Entidades\Entidad.cs" />
     <Compile Include="Entidades\Metadata\PaqueteMetadata.cs" />
+    <Compile Include="Entidades\Metadata\ReservaMetadata.cs" />
     <Compile Include="Entidades\Paquete.cs">
       <DependentUpon>ProgramacionWeb3Model.tt</DependentUpon>
     </Compile>

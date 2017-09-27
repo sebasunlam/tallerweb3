@@ -9,13 +9,13 @@
         <div class="card-body">
             <h4 class="card-title">@Model.Nombre</h4>
             <p class="card-text">
-                
+
                 @Model.Descripcion
             </p>
-            <p class="card-text"><small class="text-muted">Inicio : @Model.FechaFin.ToShortDateString() / Fin: @Model.FechaFin.ToShortDateString()</small>
+            <p class="card-text">
+                <small class="text-muted">Inicio : @Model.FechaInicio.ToShortDateString() / Fin: @Model.FechaFin.ToShortDateString()</small>
             </p>
-            <a class="btn btn-primary">Reservar</a>
+            @Html.ActionLink("Reservar", "Reservar", "Paquete", new { id = Model.Id }, new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
-

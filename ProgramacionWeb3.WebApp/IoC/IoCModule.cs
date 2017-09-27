@@ -24,6 +24,7 @@ namespace ProgramacionWeb3.WebApp.IoC
             container.Register(typeof(IServicio<>), typeof(Servicio<>), Lifestyle.Scoped);
             container.Register<IUsuarioServicio,UsuarioServicio>(Lifestyle.Scoped);
             container.Register<IPaqueteServicio,PaqueteServicio>(Lifestyle.Scoped);
+            container.Register<IReservaServicio, ReservaServicio>(Lifestyle.Scoped);
 
 
             #endregion

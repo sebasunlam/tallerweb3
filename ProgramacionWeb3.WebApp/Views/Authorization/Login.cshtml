@@ -6,6 +6,9 @@
 <div class="container">
     @using (Html.BeginForm("Login", "Authorization", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(x=>x.ReturnUrl)
 
         <div class="form-group">
             <label for="Email">Email</label>

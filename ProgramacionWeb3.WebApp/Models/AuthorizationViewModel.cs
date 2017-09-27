@@ -10,5 +10,6 @@ namespace ProgramacionWeb3.WebApp.Models
         [Required(ErrorMessage = "Debe ingresar una contraseña")]
         public string Password { get; set; }
         public bool Remember { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

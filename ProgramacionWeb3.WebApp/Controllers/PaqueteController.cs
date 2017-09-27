@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProgramacionWeb3.Servicios.Contracts;
+using ProgramacionWeb3.WebApp.Extensions;
 using ProgramacionWeb3.WebApp.Models;
 using ProgramacionWeb3.WebApp.Models.Extensions;
 
@@ -13,10 +14,12 @@ namespace ProgramacionWeb3.WebApp.Controllers
     public class PaqueteController : Controller
     {
         private readonly IPaqueteServicio _paqueteServicio;
+        private readonly IReservaServicio _reservaServicio;
 
-        public PaqueteController(IPaqueteServicio paqueteServicio)
+        public PaqueteController(IPaqueteServicio paqueteServicio, IReservaServicio reservaServicio)
         {
             _paqueteServicio = paqueteServicio;
+            _reservaServicio = reservaServicio;
         }
 
         [Authorize(Roles = "Administrador"), Route("Index/{page}/{pageSize}"), Route("Index")]
@@ -39,13 +42,6 @@ namespace ProgramacionWeb3.WebApp.Controllers
         {
             var paquete = _paqueteServicio.Get(id);
 
-            return paquete == null ? View("_notFound") : View(paquete.Map());
-        }
-
-        [Authorize, Route("Reservar/{id}")]
-        public ActionResult Reservar(long id)
-        {
-            var paquete = _paqueteServicio.Get(id);
             return paquete == null ? View("_notFound") : View(paquete.Map());
         }
 
@@ -128,6 +124,58 @@ namespace ProgramacionWeb3.WebApp.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize, Route("Reservar")]
+        public ActionResult Reservar(int id)
+        {
+            var paquete = _paqueteServicio.Get(id);
+
+            return paquete == null ? View("_notFound") : View(new ReservaViewModel().Map(paquete));
+        }
+
+        [Authorize, HttpPost, Route("Reservar")]
+        public ActionResult Reservar(ReservaViewModel model)
+        {
+            var paquete = _paqueteServicio.Get(model.IdPaquete);
+
+            if (paquete == null) return View("_notFound");
+
+            if (DateTime.Now > paquete.FechaInicio)
+                ModelState.AddModelError("paquete_fechas", "La fecha de inicio del paquete debe ser menor o igual a la fecha actual");
+
+            if (paquete.LugaresDisponibles != null && paquete.LugaresDisponibles < model.CantPersonas)
+                ModelState.AddModelError("paquete_disponibles", "La cantidad de pasajeros supera los lugares disponibles");
+
+            if (ModelState.IsValid)
+            {
+                _reservaServicio.Create(model.Map(User.Identity.ToPw3User().Id));
+
+                return Redirect(Url.Action("Index", "Home"));
+            }
+
+            model.PaqueteViewModel = paquete.Map();
+
+            return View(model);
+        }
+
+        [Authorize, Route("HistorialReserva/{page}/{pageSize}"), Route("HistorialReserva")]
+        public ActionResult HistorialReserva(int page = 1, int pageSize = 10)
+        {
+            var rervas = _reservaServicio.GetAll(User.Identity.ToPw3User().Id, page, pageSize);
+
+
+
+            return View(new ListadoReservasViewModel
+            {
+                Reservas = rervas.Select(x => x.Map(x.Paquete)).ToList(),
+                TotalItems = rervas.TotalItems,
+                TotalPages = rervas.TotalPages,
+                CurrentPage = page,
+                PageSize = pageSize
+            });
+
+
         }
 
 

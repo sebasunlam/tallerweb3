@@ -24,12 +24,12 @@ namespace ProgramacionWeb3.WebApp.Controllers
 
 
         [AllowAnonymous,Route("Login")]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-            return View();
+            return View(new AuthorizationViewModel{ReturnUrl = returnUrl});
         }
 
-        [AllowAnonymous,HttpPost, Route("Login")]
+        [AllowAnonymous,HttpPost, Route("Login"),ValidateAntiForgeryToken]
         public ActionResult Login(AuthorizationViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -39,6 +39,9 @@ namespace ProgramacionWeb3.WebApp.Controllers
             if (usuario != null)
             {
                 IdentitySignin(usuario,model.Remember);
+
+                if (!string.IsNullOrWhiteSpace(model.ReturnUrl))
+                    return Redirect(model.ReturnUrl);
 
                 return Redirect(Url.Action("Index", "Home"));
             }

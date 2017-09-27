@@ -1,0 +1,119 @@
+﻿@model ProgramacionWeb3.WebApp.Models.ListadoReservasViewModel
+@{
+    ViewBag.Title = "Historial Reserva";
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $("#ddPageSize").change(function() {
+            window.location.href = '@Url.Action("HistorialReserva","Paquete")/@Model.CurrentPage/'+$(this).val();
+            });
+    })
+    </script>
+}
+
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    <div class="row deck-margin">
+        <div class="col">
+            <table class="table table-striped table-hover">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Precio</th>
+                        <th>Lugares</th>
+                        <th>Fecha de reserva</th>
+                        <th>Cantidad pasajeros</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reserva in Model.Reservas)
+                    {
+                        <tr>
+                            <th>@reserva.Id</th>
+                            <th>@reserva.PaqueteViewModel.Nombre</th>
+                            <th>@reserva.PaqueteViewModel.FechaInicio.ToShortDateString()</th>
+                            <th>@reserva.PaqueteViewModel.FechaFin.ToShortDateString()</th>
+                            <th>@($"${reserva.PaqueteViewModel.PrecioPorPersona}")</th>
+                            <th>@reserva.PaqueteViewModel.LugaresDisponibles</th>
+                            <th>@reserva.FechaCreacion.ToShortDateString()</th>
+                            <th>@reserva.CantPersonas</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if (Model.CurrentPage != 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage - 1, pageSize = Model.PageSize})">Anterior</a></li>
+                    }
+                    @if (Model.CurrentPage - 5 > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage - 5, pageSize = Model.PageSize})">-5</a></li>
+                    }
+                    @if (Model.TotalPages > 5)
+                    {
+                        for (var i = Model.CurrentPage; i <= Model.CurrentPage + 5; i++)
+                        {
+                            if (Model.CurrentPage == i)
+                            {
+                                <li class="page-item active"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (var i = 1; i <= Model.TotalPages; i++)
+                        {
+                            if (Model.CurrentPage == i)
+                            {
+                                <li class="page-item active"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
+                            }
+                        }
+                    }
+
+                    @if (Model.CurrentPage + 5 < Model.TotalPages)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage + 5, pageSize = Model.PageSize})">+5</a></li>
+                    }
+                    @if (Model.CurrentPage != Model.TotalPages)
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage + 1, pageSize = Model.PageSize})">Siguiente</a></li>
+                    }
+
+
+                </ul>
+            </nav>
+        </div>
+        <div class="col-2 text-left">
+            <label class="text-primary lead">Mostrando</label>
+        </div>
+        <div class="col-1">
+            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize" })
+        </div>
+        <div class="col-2">
+            <label class="text-primary lead">Items de: <strong>@Model.TotalItems</strong></label>
+        </div>
+    </div>
+</div>
+

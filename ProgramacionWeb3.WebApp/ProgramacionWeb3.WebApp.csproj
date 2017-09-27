@@ -190,9 +190,12 @@
     <Compile Include="IoC\IoCModule.cs" />
     <Compile Include="Models\AuthorizationViewModel.cs" />
     <Compile Include="Models\Extensions\PaqueteViewModelExtension.cs" />
+    <Compile Include="Models\Extensions\ReservaViewModelExtension.cs" />
     <Compile Include="Models\ListadoPaquetesViewModel.cs" />
+    <Compile Include="Models\ListadoReservasViewModel.cs" />
     <Compile Include="Models\PaqueteViewModel.cs" />
     <Compile Include="Models\Pw3User.cs" />
+    <Compile Include="Models\ReservaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -381,6 +384,8 @@
     <Content Include="Views\Paquete\Editar.cshtml" />
     <Content Include="Views\Paquete\Crear.cshtml" />
     <Content Include="Views\Paquete\CreateEditFormPartial.cshtml" />
+    <Content Include="Views\Paquete\Reservar.cshtml" />
+    <Content Include="Views\Paquete\HistorialReserva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
