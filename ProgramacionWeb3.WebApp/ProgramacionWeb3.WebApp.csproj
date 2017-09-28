@@ -198,6 +198,7 @@
     <Compile Include="Controllers\PaqueteController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Extensions\Pw3UserExtension.cs" />
+    <Compile Include="Filters\LayoutFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -400,6 +401,8 @@
     <Content Include="Views\Paquete\CreateEditFormPartial.cshtml" />
     <Content Include="Views\Paquete\Reservar.cshtml" />
     <Content Include="Views\Paquete\HistorialReserva.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

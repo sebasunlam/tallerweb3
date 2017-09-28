@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using ProgramacionWeb3.Servicios.Contracts;
 using ProgramacionWeb3.WebApp.Extensions;
+using ProgramacionWeb3.WebApp.Filters;
 using ProgramacionWeb3.WebApp.Models;
 using ProgramacionWeb3.WebApp.Models.Extensions;
 
 namespace ProgramacionWeb3.WebApp.Controllers
 {
     [RoutePrefix("Paquete")]
+    [LayoutFilter]
     public class PaqueteController : Controller
     {
         private readonly IPaqueteServicio _paqueteServicio;
