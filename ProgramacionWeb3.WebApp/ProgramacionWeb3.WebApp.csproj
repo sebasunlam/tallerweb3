@@ -197,6 +197,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaqueteController.cs" />
     <Compile Include="Controllers\ReservaController.cs" />
+    <Compile Include="Extensions\PagingHelper.cs" />
     <Compile Include="Extensions\Pw3UserExtension.cs" />
     <Compile Include="Filters\LayoutFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -206,6 +207,7 @@
     <Compile Include="Models\AuthorizationViewModel.cs" />
     <Compile Include="Models\Extensions\PaqueteViewModelExtension.cs" />
     <Compile Include="Models\Extensions\ReservaViewModelExtension.cs" />
+    <Compile Include="Models\IPagedModel.cs" />
     <Compile Include="Models\ListadoPaquetesViewModel.cs" />
     <Compile Include="Models\ListadoReservasViewModel.cs" />
     <Compile Include="Models\PaqueteViewModel.cs" />

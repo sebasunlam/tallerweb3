@@ -31,7 +31,7 @@ namespace ProgramacionWeb3.WebApp.Controllers
             ViewBag.paqueteOperacion = paquete;
             return View(new ListadoPaquetesViewModel
             {
-                Paquetes = paquetes.Select(x => x.Map()).ToList(),
+                List = paquetes.Select(x => x.Map()).ToList(),
                 TotalItems = paquetes.TotalItems,
                 TotalPages = paquetes.TotalPages,
                 CurrentPage = page,
@@ -170,7 +170,7 @@ namespace ProgramacionWeb3.WebApp.Controllers
 
             return View(new ListadoReservasViewModel
             {
-                Reservas = rervas.Select(x => x.Map(x.Paquete)).ToList(),
+                List = rervas.Select(x => x.Map(x.Paquete)).ToList(),
                 TotalItems = rervas.TotalItems,
                 TotalPages = rervas.TotalPages,
                 CurrentPage = page,

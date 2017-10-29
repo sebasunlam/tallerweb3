@@ -2,9 +2,9 @@
 
 namespace ProgramacionWeb3.WebApp.Models
 {
-    public class ListadoReservasViewModel
+    public class ListadoReservasViewModel : IPagedModel<ReservaViewModel>
     {
-        public List<ReservaViewModel> Reservas { get; set; }
+        public List<ReservaViewModel> List { get; set; }
         public int TotalItems { get; set; }
         public int TotalPages { get; set; }
         public int CurrentPage { get; set; }

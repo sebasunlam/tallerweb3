@@ -1,4 +1,5 @@
-﻿@model ProgramacionWeb3.WebApp.Models.ListadoReservasViewModel
+﻿@using ProgramacionWeb3.WebApp.Extensions
+@model ProgramacionWeb3.WebApp.Models.ListadoReservasViewModel
 @{
     ViewBag.Title = "Historial Reserva";
 }
@@ -40,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var reserva in Model.Reservas)
+                    @foreach (var reserva in Model.List)
                     {
                         <tr>
                             <td>@reserva.Id</td>
@@ -58,64 +59,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-7">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    @if (Model.CurrentPage != 1)
-                    {
-                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage - 1, pageSize = Model.PageSize})">Anterior</a></li>
-                    }
-                    @if (Model.CurrentPage - 5 > 1)
-                    {
-                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage - 5, pageSize = Model.PageSize})">-5</a></li>
-                    }
-                    @if (Model.TotalPages > 5)
-                    {
-                        for (var i = Model.CurrentPage; i <= Model.CurrentPage + 5; i++)
-                        {
-                            if (Model.CurrentPage == i)
-                            {
-                                <li class="page-item active"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
-                            }
-                            else
-                            {
-                                <li class="page-item"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (var i = 1; i <= Model.TotalPages; i++)
-                        {
-                            if (Model.CurrentPage == i)
-                            {
-                                <li class="page-item active"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
-                            }
-                            else
-                            {
-                                <li class="page-item"><a href="@Url.Action("HistorialReserva", "Paquete", new {page = i, pageSize = Model.PageSize})" class="page-link">@i</a></li>
-                            }
-                        }
-                    }
-
-                    @if (Model.CurrentPage + 5 < Model.TotalPages)
-                    {
-                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage + 5, pageSize = Model.PageSize})">+5</a></li>
-                    }
-                    @if (Model.CurrentPage != Model.TotalPages)
-                    {
-                        <li class="page-item"><a class="page-link" href="@Url.Action("HistorialReserva", "Paquete", new {page = Model.CurrentPage + 1, pageSize = Model.PageSize})">Siguiente</a></li>
-                    }
-
-
-                </ul>
-            </nav>
-        </div>
+        @Html.Pager(Model, "HistorialReserva", "Paquete")
+        
         <div class="col-2 text-left">
             <label class="text-primary lead">Mostrando</label>
         </div>
         <div class="col-1">
-            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize" })
+            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new {@class = "form-control", @id = "ddPageSize"})
         </div>
         <div class="col-2">
             <label class="text-primary lead">Items de: <strong>@Model.TotalItems</strong></label>

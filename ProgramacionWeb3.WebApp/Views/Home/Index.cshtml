@@ -4,19 +4,19 @@
     var counter = 0;
 }
 <div class="container">
-    @if (Model.Paquetes.Any())
+    @if (Model.List.Any())
     {
 
-        for (var x = 0; x <= Model.Paquetes.Count / 4; x++)
+        for (var x = 0; x <= Model.List.Count / 4; x++)
             {
                 <div class="card-deck deck-margin">
                     @for (var i = 0; i < 4; i++)
                     {
 
-                        if (counter < Model.Paquetes.Count)
+                        if (counter < Model.List.Count)
                         {
                             {
-                                var paquete = Model.Paquetes[counter];
+                                var paquete = Model.List[counter];
 
                                 counter++;
 

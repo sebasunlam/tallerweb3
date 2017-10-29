@@ -21,7 +21,7 @@ namespace ProgramacionWeb3.WebApp.Controllers
         {
             return View(new ListadoPaquetesViewModel
             {
-                Paquetes = _paqueteServicio.GetDestacados().Select(x=>x.Map()).ToList()
+                List = _paqueteServicio.GetDestacados().Select(x=>x.Map()).ToList()
             });
         }
         

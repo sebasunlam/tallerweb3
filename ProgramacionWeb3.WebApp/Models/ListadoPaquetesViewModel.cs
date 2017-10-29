@@ -3,9 +3,9 @@ using ProgramacionWeb3.Dominio.Entidades;
 
 namespace ProgramacionWeb3.WebApp.Models
 {
-    public class ListadoPaquetesViewModel
+    public class ListadoPaquetesViewModel : IPagedModel<PaqueteViewModel>
     {
-        public List<PaqueteViewModel> Paquetes { get; set; }
+        public List<PaqueteViewModel> List { get; set; }
         public int TotalItems { get; set; }
         public int TotalPages { get; set; }
         public int CurrentPage { get; set; }
