@@ -3,13 +3,8 @@
     ViewBag.Title = "Reservar";
 }
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#backLink").click(function (event) {
-                event.preventDefault();
-                history.back(1);
-            });
-        });
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ReservarScript.js")">
+        
     </script>
 }
 

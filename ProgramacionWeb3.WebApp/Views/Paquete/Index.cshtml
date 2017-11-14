@@ -5,56 +5,8 @@
 }
 
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $(function() {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-
-            $("#ddPageSize").change(function() {
-            window.location.href = '@Url.Action("Index","Paquete")/@Model.CurrentPage/'+$(this).val();
-            });
-
-            $(".fa-star").click(function () {
-                changeDestacado($(this));
-            });
-
-            $(".fa-star-o").click(function () {
-                changeDestacado($(this));
-            });
-
-            $(".btn-outline-danger").click(function () {
-                waitingDialog.show();
-                window.location.href = '@Url.Action("Eliminar")/' + $(this).attr('paqueteId');
-            });
-
-            $(".btn-outline-primary").click(function () {
-                waitingDialog.show();
-                window.location.href = '@Url.Action("Editar")/' + $(this).attr('paqueteId');
-            });
-
-            function changeDestacado(star) {
-                var current = star.attr('class');
-                star.removeClass();
-                star.addClass('fa fa-spinner fa-pulse');
-
-                $.post('@Url.Action("ChangeDestacado")/' + star.attr('paqueteId'),
-                    function (data) {
-                        star.removeClass();
-                        if (data) {
-                            star.addClass('text-warning fa fa-star');
-                        } else {
-                            star.addClass('text-warning fa fa-star-o');
-                        }
-                    }).fail(function() {
-                    star.removeClass();
-                    star.addClass(current);
-                });
-            }
-
-
-    })
+    <script type="text/javascript" src="@Url.Content("~/Scripts/IndexReservaScript.js")">
+        
     </script>
 }
 
@@ -106,10 +58,10 @@
                             <th>@paquete.FechaFin.ToShortDateString()</th>
                             <th>@($"${paquete.PrecioPorPersona}")</th>
                             <th>@paquete.LugaresDisponibles</th>
-                            <th class="text-center"><i class='text-warning @(paquete.Destacado ? "fa fa-star" : "fa fa-star-o")' aria-hidden="true" paqueteId="@paquete.Id"></i></th>
+                            <th class="text-center"><i class='text-warning @(paquete.Destacado ? "fa fa-star" : "fa fa-star-o")' aria-hidden="true" paqueteId="@paquete.Id" url="@Url.Action("ChangeDestacado")"></i></th>
                             <th>
-                                <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Editar" paqueteId="@paquete.Id"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" paqueteId="@paquete.Id"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Editar" paqueteId="@paquete.Id" url="@Url.Action("Editar")"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" paqueteId="@paquete.Id" url="@Url.Action("Eliminar")"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </th>
                         </tr>
                     }
@@ -123,7 +75,7 @@
             <label class="text-primary lead">Mostrando</label>
         </div>
         <div class="col-1">
-            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize" })
+            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new { @class = "form-control", @id = "ddPageSize",url= $"{Url.Action("Index", "Paquete")}/{Model.CurrentPage}/" })
         </div>
         <div class="col-2">
             <label class="text-primary lead">Items de: <strong>@Model.TotalItems</strong></label>

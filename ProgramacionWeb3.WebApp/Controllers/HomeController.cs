@@ -24,19 +24,5 @@ namespace ProgramacionWeb3.WebApp.Controllers
                 List = _paqueteServicio.GetDestacados().Select(x=>x.Map()).ToList()
             });
         }
-        
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

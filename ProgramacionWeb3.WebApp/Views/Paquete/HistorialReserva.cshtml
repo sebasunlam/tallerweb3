@@ -5,20 +5,7 @@
 }
 
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            $("#ddPageSize").change(function() {
-            window.location.href = '@Url.Action("HistorialReserva","Paquete")/@Model.CurrentPage/'+$(this).val();
-            });
-
-            $(".delete").click(function () {
-                var id = $(this).attr("idReserva");
-                $.post("http://localhost:60569/api/reserva/delete/" + id).then(function() {
-                    location.reload();
-                });
-            });
-        })
+    <script type="text/javascript" src="@Url.Content("~/Scripts/HistorialReservaScript.js")">
     </script>
 }
 
@@ -65,7 +52,7 @@
             <label class="text-primary lead">Mostrando</label>
         </div>
         <div class="col-1">
-            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new {@class = "form-control", @id = "ddPageSize"})
+            @Html.DropDownListFor(m => m.PageSize, new SelectList(Model.AvaiableSizes, Model.PageSize), new {@class = "form-control", @id = "ddPageSize",url= $"{Url.Action("HistorialReserva","Paquete")}/{Model.CurrentPage}/" })
         </div>
         <div class="col-2">
             <label class="text-primary lead">Items de: <strong>@Model.TotalItems</strong></label>
